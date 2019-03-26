@@ -1,2 +1,2 @@
-# gerenciador-financeiro
-projeto de gestão financeira
+# Gerenciador Financeiro
+Projeto de Gestão Financeira
