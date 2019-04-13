@@ -1,15 +1,14 @@
 package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
+import br.com.lucas.gestorfinanceiroapi.enums.TipoCategoriaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -22,21 +21,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Despesa implements Serializable {
-	private static final long serialVersionUID = -8166406585990544021L;
-
+public class Categoria implements Serializable {
+	private static final long serialVersionUID = 8703126403945423249L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne
-	private Conta conta;
+	private String descricao;
 	
-	@OneToOne
-	private Categoria categoria;
-	
-	private Date dataDespesa;
-	
-	private BigDecimal total;
+	@Enumerated
+	private TipoCategoriaEnum tipoCategoria;
 
 }

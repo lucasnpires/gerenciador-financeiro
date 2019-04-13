@@ -2,13 +2,11 @@ package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,21 +20,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Despesa implements Serializable {
-	private static final long serialVersionUID = -8166406585990544021L;
-
+public class Conta implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@OneToOne
-	private Conta conta;
+	private String nome;
 	
-	@OneToOne
-	private Categoria categoria;
+	private Boolean temSaldoInicial;
 	
-	private Date dataDespesa;
+	private BigDecimal saldoInicial;
 	
-	private BigDecimal total;
+	
 
 }

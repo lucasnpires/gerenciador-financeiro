@@ -29,13 +29,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
 	public Docket apiDocket() {
 
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(getApiInfo()).select()
-				.apis(RequestHandlerSelectors.basePackage("br.com.lucas.gestorfinanceiroapi.controller"))
+				.apis(RequestHandlerSelectors.basePackage("br.com.lucas.gestorfinanceiroapi.resource"))
 				.paths(PathSelectors.any()).build();
 	}
 
 	private ApiInfo getApiInfo() {
 
-		return new ApiInfoBuilder().title("Swagger API Doc").description("More description about the API")
+		return new ApiInfoBuilder().title("Swagger API Doc").description("API responsável por manipular os dados de Gestão Financeira")
 				.version("1.0.0").build();
 	}
 }
