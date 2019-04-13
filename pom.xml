@@ -16,7 +16,18 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+
+		<commons-lang3.version>3.7</commons-lang3.version>
+		<springfox.version>2.9.2</springfox.version>
+		<cucumber-version>1.2.5</cucumber-version>
+		<cumcumber.reports.version>1.1.1</cumcumber.reports.version>
+		<extents.reports.version>3.1.3</extents.reports.version>
+		<log4j.version>1.2.17</log4j.version>
+		<alfred.version>1.3.6</alfred.version>
+		<faker.version>0.14</faker.version>
 	</properties>
 
 	<dependencies>
@@ -63,8 +74,20 @@
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.thiagonego</groupId>
+			<artifactId>alfred</artifactId>
+			<version>${alfred.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>2.3.0</version>
+		</dependency>
 
 	</dependencies>
 

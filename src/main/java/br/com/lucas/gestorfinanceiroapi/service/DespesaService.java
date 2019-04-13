@@ -18,4 +18,7 @@ public class DespesaService {
 		return despesasRepository.findAll();
 	}
 
+	public Despesa salvarDespesa(Despesa despesa) {
+		return despesasRepository.save(despesa);
+	}
 }
