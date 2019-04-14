@@ -2,7 +2,7 @@ package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,7 +35,7 @@ public class Despesa implements Serializable {
 	@OneToOne
 	private Categoria categoria;
 	
-	private Date dataDespesa;
+	private LocalDate dataDespesa;
 	
 	private BigDecimal total;
 

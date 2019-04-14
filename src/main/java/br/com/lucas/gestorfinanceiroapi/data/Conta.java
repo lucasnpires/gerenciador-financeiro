@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.lucas.gestorfinanceiroapi.enums.StatusSaldoInicialEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -29,7 +31,8 @@ public class Conta implements Serializable {
 	
 	private String nome;
 	
-	private Boolean temSaldoInicial;
+	@Enumerated
+	private StatusSaldoInicialEnum statusSaldoInicial;
 	
 	private BigDecimal saldoInicial;
 	

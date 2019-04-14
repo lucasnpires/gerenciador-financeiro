@@ -4,6 +4,10 @@ public interface AppConstantes {
 
 	// REST
 	String PATH_DESPESAS = "/despesas";
+	
+	String PATH_CATEGORIAS = "/categoria";
+	
+	String PATH_CONTAS = "/conta";
 
 	String PATH_LISTAR = "/listar";
 
@@ -54,8 +58,6 @@ public interface AppConstantes {
 	String PATH_ESTABELECIMENTO_HORARIO = "/estabelecimentos/{id}/horarios";
 
 	String PATH_ESTABELECIMENTO_PRODUTO = "/{id}/produtos";
-
-	String PATH_CONTAS = "/contas";
 
 	String PATH_CONTAS_EXTRATO = "/{id}/extratos";
 

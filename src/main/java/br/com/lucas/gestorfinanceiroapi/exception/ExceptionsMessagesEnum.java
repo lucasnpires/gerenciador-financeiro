@@ -22,6 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 public enum ExceptionsMessagesEnum {
+	
+	CATEGORIA_NAO_ENCONTRADA(NOT_FOUND, "Categoria não encontrada", NotFoundCustom.class),
+	CONTA_NAO_ENCONTRADA(NOT_FOUND, "Conta não encontrada", NotFoundCustom.class),
+	DESPESA_NAO_ENCONTRADA(NOT_FOUND, "Despesa não encontrada", NotFoundCustom.class),
+	REQUIRED_ID(BAD_REQUEST, "Id requerido" , BadRequestCustom.class),
 
     GLOBAL_BAD_REQUEST(BAD_REQUEST, "Falha na requisição" , BadRequestCustom.class),
     GLOBAL_ERRO_SERVIDOR(INTERNAL_SERVER_ERROR, "Erro interno de servidor", ExceptionCustom.class),
@@ -69,7 +74,6 @@ public enum ExceptionsMessagesEnum {
     PERIODO_SUPERIOR(BAD_REQUEST, "Período selecionado está superior a 6 meses", BadRequestCustom.class),
     PARAMETRO_NAO_ENCONTRADO(NOT_FOUND, "Parametro não encontrado", NotFoundCustom.class),
     GRUPO_EMPRESA_NAO_ENCONTRADO(NOT_FOUND, "Grupo empresa não encontrado", NotFoundCustom.class),
-    CONTA_NAO_ENCONTRADA(NOT_FOUND, "Conta não encontrada", NotFoundCustom.class),
     TIPO_PRODUTO_NAO_CADASTRADO(BAD_REQUEST, "tipo produto não cadastrado", BadRequestCustom.class),
     RECURSO_NAO_ENCONTRADO(NO_CONTENT, "Recurso não encotrado", NoContentCustom.class),
     CAMPOS_OBRIGATORIO(BAD_REQUEST, "Campos obrigatórios não foram preenchidos.", BadRequestCustom.class),
