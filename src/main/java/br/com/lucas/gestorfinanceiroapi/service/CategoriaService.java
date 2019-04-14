@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
@@ -29,49 +29,49 @@ public class CategoriaService {
 	
 
 	public ResponseEntity<?> salvarCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
-		Categoria categoria = convertCategoriaSalvarRequesttInCategoria(categoriaRequest);
-		Categoria categoriaSaved = categoriaRepository.save(categoria);
+		CategoriaDespesa categoria = convertCategoriaSalvarRequesttInCategoria(categoriaRequest);
+		CategoriaDespesa categoriaSaved = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaSaved)) {
 			return new ResponseEntity<Conta>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<Categoria>(categoriaSaved, HttpStatus.CREATED);
+		return new ResponseEntity<CategoriaDespesa>(categoriaSaved, HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<Categoria> buscarCategoriaPorId(Long id) {
-		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
+	public ResponseEntity<CategoriaDespesa> buscarCategoriaPorId(Long id) {
+		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
-		return new ResponseEntity<Categoria>(categoria, HttpStatus.OK);
+		return new ResponseEntity<CategoriaDespesa>(categoria, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Page<Categoria>> listarCategorias(Integer page, Integer size) {
+	public ResponseEntity<Page<CategoriaDespesa>> listarCategorias(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		
-		Page<Categoria> categorias = categoriaRepository.findAll(pageable);
+		Page<CategoriaDespesa> categorias = categoriaRepository.findAll(pageable);
 		BadRequestCustom.checkThrow(Objects.isNull(categorias), ExceptionsMessagesEnum.GLOBAL_ERRO_SERVIDOR);
 
-		return new ResponseEntity<Page<Categoria>>(categorias, HttpStatus.OK);
+		return new ResponseEntity<Page<CategoriaDespesa>>(categorias, HttpStatus.OK);
 	}
 	
 
-	private Categoria convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
-		Categoria retorno = new Categoria();
+	private CategoriaDespesa convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
+		CategoriaDespesa retorno = new CategoriaDespesa();
 		retorno.setDescricao(categoriaRequest.getDescricao());
 		retorno.setTipoCategoria(categoriaRequest.getTipoCategoria());
 		return retorno;
 	}
 
 	public void excluirCategoria(Long id) {
-		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
+		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		categoriaRepository.delete(categoria);
 	}
 
-	public ResponseEntity<Categoria> atualizarCategoria(Long id, @Valid CategoriaUpdateRequest update) {
-		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
+	public ResponseEntity<CategoriaDespesa> atualizarCategoria(Long id, @Valid CategoriaUpdateRequest update) {
+		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		 if (Objects.nonNull(update.getDescricao()))
@@ -81,13 +81,13 @@ public class CategoriaService {
 			 categoria.setTipoCategoria(update.getTipoCategoria());
 		 
 		
-		Categoria categoriaUpdated = categoriaRepository.save(categoria);
+		CategoriaDespesa categoriaUpdated = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaUpdated)) {
-			return new ResponseEntity<Categoria>(HttpStatus.INTERNAL_SERVER_ERROR);		
+			return new ResponseEntity<CategoriaDespesa>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<Categoria>(HttpStatus.OK);
+		return new ResponseEntity<CategoriaDespesa>(HttpStatus.OK);
 	}
 
 }

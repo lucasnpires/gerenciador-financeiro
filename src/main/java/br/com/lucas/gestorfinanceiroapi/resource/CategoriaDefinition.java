@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageCategoriasResponse;
@@ -38,7 +38,7 @@ public interface CategoriaDefinition {
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> listarCategorias(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size);
 
-	@ApiOperation(value = "Buscar categoria por id", notes = "Buscar categoria por id", response = Categoria.class)
+	@ApiOperation(value = "Buscar categoria por id", notes = "Buscar categoria por id", response = CategoriaDespesa.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
 			@ApiResponse(code = 403, message = MENSAGEM_GLOBAL_403, response = ErroInfo.class),
@@ -64,11 +64,11 @@ public interface CategoriaDefinition {
 	void excluir(
 			@ApiParam(value = "Id da categoria, (Ex. 1)", example = "1", required = true) @PathVariable(name = "id") Long id);
 
-	@ApiOperation(value = "Atualizar Categoria", notes = "Atualizar Categoria", response = Categoria.class)
+	@ApiOperation(value = "Atualizar Categoria", notes = "Atualizar Categoria", response = CategoriaDespesa.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
-	ResponseEntity<Categoria> atualizarCategoria(@PathVariable(name = "id") Long id,
+	ResponseEntity<CategoriaDespesa> atualizarCategoria(@PathVariable(name = "id") Long id,
 			@RequestBody(required = true) @Valid CategoriaUpdateRequest request);
 
 }

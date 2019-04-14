@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.data.Despesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.DespesaSalvarRequest;
@@ -55,7 +55,7 @@ public class DespesaService {
 		Conta conta = contaRepository.findById(despesaRequest.getIdConta()).orElse(new Conta());
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 		
-		Categoria categoria = categoriaRepository.findById(despesaRequest.getIdCategoria()).orElse(new Categoria());
+		CategoriaDespesa categoria = categoriaRepository.findById(despesaRequest.getIdCategoria()).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		Despesa despesa = convertDespesaRequestInDespesa(despesaRequest);
@@ -72,7 +72,7 @@ public class DespesaService {
 	private Despesa convertDespesaRequestInDespesa(DespesaSalvarRequest despesaRequest) {
 		Despesa retorno = new Despesa();
 		retorno.setConta(contaRepository.findById(despesaRequest.getIdConta()).orElse(new Conta()));
-		retorno.setCategoria(categoriaRepository.findById(despesaRequest.getIdCategoria()).orElse(new Categoria()));
+		retorno.setCategoria(categoriaRepository.findById(despesaRequest.getIdCategoria()).orElse(new CategoriaDespesa()));
 		retorno.setDataDespesa(despesaRequest.getDataDespesa());
 		retorno.setTotal(despesaRequest.getTotal());
 		return retorno;

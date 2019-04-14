@@ -8,9 +8,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
-import br.com.lucas.gestorfinanceiroapi.enums.StatusSaldoInicialEnum;
+import br.com.lucas.gestorfinanceiroapi.enums.BandeiraEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -23,23 +22,25 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Conta implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Cartao implements Serializable {
+	private static final long serialVersionUID = -9064115717740360716L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	private String nome;
+	private String descricao;
 	
-	@ManyToOne
-	private Despesa despesa;
+	private BigDecimal limite;
 	
 	@Enumerated
-	private StatusSaldoInicialEnum statusSaldoInicial;
+	private BandeiraEnum bandeira;
 	
-	private BigDecimal saldoInicial;
+	private Integer dataFechamento;
 	
+	private Integer diaPagamento;
+	
+	private Conta conta;
 	
 
 }

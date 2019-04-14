@@ -2,9 +2,9 @@ package br.com.lucas.gestorfinanceiroapi.domain.response;
 
 import java.io.Serializable;
 
-import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 
-public class PageCategoriasResponse extends PageResponse<Categoria> implements Serializable {
+public class PageCategoriasResponse extends PageResponse<CategoriaDespesa> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import br.com.lucas.gestorfinanceiroapi.enums.TipoCategoriaEnum;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Categoria implements Serializable {
+public class CategoriaDespesa implements Serializable {
 	private static final long serialVersionUID = 8703126403945423249L;
 	
 	@Id
@@ -30,5 +31,8 @@ public class Categoria implements Serializable {
 	
 	@Enumerated
 	private TipoCategoriaEnum tipoCategoria;
+	
+	@ManyToOne
+	private Despesa despesa;
 
 }
