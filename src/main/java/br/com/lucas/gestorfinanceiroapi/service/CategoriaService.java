@@ -1,9 +1,11 @@
 package br.com.lucas.gestorfinanceiroapi.service;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,10 +18,13 @@ import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
+import br.com.lucas.gestorfinanceiroapi.domain.response.PageCategoriasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
 import br.com.lucas.gestorfinanceiroapi.exception.NotFoundCustom;
 import br.com.lucas.gestorfinanceiroapi.repository.CategoriaRepository;
+import br.com.lucas.gestorfinanceiroapi.util.GenericConvert;
 
 @Service
 public class CategoriaService {
@@ -35,24 +40,27 @@ public class CategoriaService {
 		if(java.util.Objects.isNull(categoriaSaved)) {
 			return new ResponseEntity<Conta>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
-		
-		return new ResponseEntity<CategoriaDespesa>(categoriaSaved, HttpStatus.CREATED);
+		return new ResponseEntity<CategoriaDespesaResponse>(makeResponse(categoriaSaved), HttpStatus.CREATED);
 	}
 
-	public ResponseEntity<CategoriaDespesa> buscarCategoriaPorId(Long id) {
+
+	public ResponseEntity<CategoriaDespesaResponse> buscarCategoriaPorId(Long id) {
 		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
-		return new ResponseEntity<CategoriaDespesa>(categoria, HttpStatus.OK);
+		return new ResponseEntity<CategoriaDespesaResponse>(makeResponse(categoria), HttpStatus.OK);
 	}
 
-	public ResponseEntity<Page<CategoriaDespesa>> listarCategorias(Integer page, Integer size) {
+	public PageCategoriasResponse listarCategorias(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		
-		Page<CategoriaDespesa> categorias = categoriaRepository.findAll(pageable);
-		BadRequestCustom.checkThrow(Objects.isNull(categorias), ExceptionsMessagesEnum.GLOBAL_ERRO_SERVIDOR);
-
-		return new ResponseEntity<Page<CategoriaDespesa>>(categorias, HttpStatus.OK);
+		Page<CategoriaDespesa> listaCategorias = categoriaRepository.findAll(pageable);
+		BadRequestCustom.checkThrow(Objects.isNull(listaCategorias) || listaCategorias.getContent().isEmpty(), ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
+		
+		PageCategoriasResponse pageCategoriasResponse = new PageCategoriasResponse(GenericConvert.convertModelMapperToPageResponse(listaCategorias, new TypeToken<List<CategoriaDespesaResponse>>() {
+        }.getType()));
+		
+		return pageCategoriasResponse;
 	}
 	
 
@@ -88,6 +96,15 @@ public class CategoriaService {
 		}
 		
 		return new ResponseEntity<CategoriaDespesa>(HttpStatus.OK);
+	}
+	
+	
+	private CategoriaDespesaResponse makeResponse(CategoriaDespesa categoriaSaved) {
+		CategoriaDespesaResponse retorno = new CategoriaDespesaResponse();
+		retorno.setId(categoriaSaved.getId());
+		retorno.setDescricao(categoriaSaved.getDescricao());
+		retorno.setTipoCategoria(categoriaSaved.getTipoCategoria());
+		return retorno;
 	}
 
 }

@@ -1,5 +1,7 @@
 package br.com.lucas.gestorfinanceiroapi.domain.request;
 
+import java.io.Serializable;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
@@ -18,8 +20,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @ApiModel(value = "CategoriaSalvarRequest", description = "CategoriaSalvarRequest")
-public class CategoriaSalvarRequest {
-	
+public class CategoriaSalvarRequest implements Serializable {
+	private static final long serialVersionUID = -3280389227228641608L;
+
 	@Size(max = 100, message = "quantidade de caracteres deve ser menor que 100")
 	@NotNull(message = "não pode ser null")
 	@ApiModelProperty(value = "Descrição da categoria", example = "Supermercado", position = 1)

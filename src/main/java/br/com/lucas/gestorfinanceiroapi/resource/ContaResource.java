@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.PageContasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
 import br.com.lucas.gestorfinanceiroapi.service.ContaService;
@@ -30,13 +31,14 @@ import br.com.lucas.gestorfinanceiroapi.util.AppConstantes;
 @RestController
 @RequestMapping(value = AppConstantes.PATH_CONTAS, produces = APPLICATION_JSON_UTF8_VALUE)
 public class ContaResource implements ContaDefinition {
-	
+
 	@Autowired
 	private ContaService contaService;
 
 	@GetMapping(value = AppConstantes.PATH_LISTAR, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> listarContas(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size) {
-		return contaService.listarContas(page, size);
+	public ResponseEntity<PageContasResponse> listarContas(@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "50") Integer size) {
+		return ResponseEntity.ok(contaService.listarContas(page, size));
 	}
 
 	@GetMapping(value = AppConstantes.PATH_ID, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -56,7 +58,7 @@ public class ContaResource implements ContaDefinition {
 	public void excluir(Long id) {
 		contaService.excluirConta(id);
 	}
-	
+
 	@PatchMapping(value = AppConstantes.PATH_ID, produces = APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<?> atualizarConta(Long id, @RequestBody(required = true) @Valid ContaUpdateRequest update) {
 		return contaService.atualizarConta(id, update);

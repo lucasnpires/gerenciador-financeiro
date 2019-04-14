@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.PageCategoriasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
 import br.com.lucas.gestorfinanceiroapi.service.CategoriaService;
@@ -36,8 +37,8 @@ public class CategoriaResource implements CategoriaDefinition {
 
 	
 	@GetMapping(value = AppConstantes.PATH_LISTAR, produces = APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> listarCategorias(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size) {
-		return categoriaService.listarCategorias(page, size);
+	public ResponseEntity<PageCategoriasResponse> listarCategorias(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size) {
+		return ResponseEntity.ok(categoriaService.listarCategorias(page, size));
 	}
 
 	@GetMapping(value = AppConstantes.PATH_ID, produces = APPLICATION_JSON_UTF8_VALUE)

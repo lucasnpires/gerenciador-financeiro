@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import br.com.lucas.gestorfinanceiroapi.enums.BandeiraEnum;
 import lombok.AllArgsConstructor;
@@ -40,6 +41,7 @@ public class Cartao implements Serializable {
 	
 	private Integer diaPagamento;
 	
+	@OneToOne
 	private Conta conta;
 	
 

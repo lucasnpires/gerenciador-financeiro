@@ -5,10 +5,14 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,15 +32,17 @@ public class Despesa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@OneToMany
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private Conta conta;
-	
-	@OneToMany
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@NotFound(action = NotFoundAction.IGNORE)
 	private CategoriaDespesa categoria;
-	
+
 	private LocalDate dataDespesa;
-	
+
 	private BigDecimal total;
 
 }

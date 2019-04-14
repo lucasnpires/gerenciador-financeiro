@@ -1,13 +1,18 @@
 package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import br.com.lucas.gestorfinanceiroapi.enums.TipoCategoriaEnum;
 import lombok.AllArgsConstructor;
@@ -32,7 +37,8 @@ public class CategoriaDespesa implements Serializable {
 	@Enumerated
 	private TipoCategoriaEnum tipoCategoria;
 	
-	@ManyToOne
-	private Despesa despesa;
+	@OneToMany(fetch = FetchType.EAGER)
+	@NotFound(action = NotFoundAction.IGNORE)
+	private List<Despesa> despesaList;
 
 }

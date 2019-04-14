@@ -1,9 +1,11 @@
 package br.com.lucas.gestorfinanceiroapi.service;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.validation.Valid;
 
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,10 +17,13 @@ import org.springframework.stereotype.Service;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.ContaResponse;
+import br.com.lucas.gestorfinanceiroapi.domain.response.PageContasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
 import br.com.lucas.gestorfinanceiroapi.exception.NotFoundCustom;
 import br.com.lucas.gestorfinanceiroapi.repository.ContaRepository;
+import br.com.lucas.gestorfinanceiroapi.util.GenericConvert;
 
 @Service
 public class ContaService {
@@ -26,13 +31,16 @@ public class ContaService {
 	@Autowired
 	private ContaRepository contaRepository;
 
-	public ResponseEntity<Page<Conta>> listarContas(Integer page, Integer size) {
+	public PageContasResponse listarContas(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size); 
 		
-		Page<Conta> contas = contaRepository.findAll(pageable);
-		BadRequestCustom.checkThrow(Objects.isNull(contas), ExceptionsMessagesEnum.GLOBAL_ERRO_SERVIDOR);
+		Page<Conta> listaContas = contaRepository.findAll(pageable);
+		BadRequestCustom.checkThrow(Objects.isNull(listaContas) || listaContas.getContent().isEmpty(), ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
 		
-		return new ResponseEntity<Page<Conta>>(contas, HttpStatus.OK);
+		PageContasResponse pageContasResponse = new PageContasResponse(GenericConvert.convertModelMapperToPageResponse(listaContas, new TypeToken<List<ContaResponse>>() {
+        }.getType()));
+		
+		return pageContasResponse;
 	}
 
 	public ResponseEntity<Conta> buscarContaPorId(Long id) {

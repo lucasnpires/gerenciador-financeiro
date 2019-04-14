@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.ContaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageContasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.ErroInfo;
 import br.com.lucas.gestorfinanceiroapi.util.AppConstantes;
@@ -40,7 +41,7 @@ public interface ContaDefinition {
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> listarContas(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size);
 
-	@ApiOperation(value = "Buscar conta por id", notes = "Buscar conta por id", response = Conta.class)
+	@ApiOperation(value = "Buscar conta por id", notes = "Buscar conta por id", response = ContaResponse.class)
 	@ApiResponses({ 
 		@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 		@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -70,7 +71,7 @@ public interface ContaDefinition {
             @ApiParam(value = "Id da conta", required = true)
             @PathVariable("id") Long id);
 	
-	@ApiOperation(value = "Atualizar Conta", notes = "Atualizar Conta", response = Conta.class)
+	@ApiOperation(value = "Atualizar Conta", notes = "Atualizar Conta", response = ContaResponse.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
