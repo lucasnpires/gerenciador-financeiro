@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageCategoriasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
@@ -60,7 +60,7 @@ public class CategoriaResource implements CategoriaDefinition {
 	}
 
 	@PatchMapping(value = AppConstantes.PATH_ID, produces = APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<CategoriaDespesa> atualizarCategoria(Long id, @RequestBody(required = true) @Valid CategoriaUpdateRequest update) {
+	public ResponseEntity<CategoriaDespesaResponse> atualizarCategoria(Long id, @RequestBody(required = true) @Valid CategoriaUpdateRequest update) {
 		return categoriaService.atualizarCategoria(id, update);
 	}
 }

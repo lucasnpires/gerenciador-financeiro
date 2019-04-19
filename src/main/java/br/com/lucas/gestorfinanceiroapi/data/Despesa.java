@@ -32,6 +32,8 @@ public class Despesa implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	private String descricao;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@NotFound(action = NotFoundAction.IGNORE)

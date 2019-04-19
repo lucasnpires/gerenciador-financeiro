@@ -14,9 +14,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.ContaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageContasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
@@ -50,25 +52,17 @@ public class ContaService {
 		return new ResponseEntity<Conta>(conta, HttpStatus.OK);
 	}
 
-	public ResponseEntity<Conta> salvarConta(@Valid ContaSalvarRequest contaRequest) {
+	public ResponseEntity<ContaResponse> salvarConta(@Valid ContaSalvarRequest contaRequest) {
 		Conta conta = convertContaSalvarRequestInConta(contaRequest);
 		Conta contaSaved = contaRepository.save(conta);
 		
 		if(java.util.Objects.isNull(contaSaved)) {
-			return new ResponseEntity<Conta>(HttpStatus.INTERNAL_SERVER_ERROR);		
+			return new ResponseEntity<ContaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<Conta>(contaSaved, HttpStatus.CREATED);
+		return new ResponseEntity<ContaResponse>(makeResponse(contaSaved), HttpStatus.CREATED);
 	}
 	
-	private Conta convertContaSalvarRequestInConta(ContaSalvarRequest contaRequest) {
-		Conta retorno = new Conta();
-		retorno.setNome(contaRequest.getNome());
-		retorno.setSaldoInicial(contaRequest.getSaldoInicial());
-		retorno.setStatusSaldoInicial(contaRequest.getStatusSaldoInicial());
-		return retorno;
-	}
-
 	public void excluirConta(Long id) {
 		Conta conta = contaRepository.findById(id).orElse(new Conta());
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
@@ -76,7 +70,7 @@ public class ContaService {
 		contaRepository.delete(conta);
 	}
 
-	public ResponseEntity<Conta> atualizarConta(Long id, @Valid ContaUpdateRequest update) {
+	public ResponseEntity<ContaResponse> atualizarConta(Long id, @Valid ContaUpdateRequest update) {
 		Conta conta = contaRepository.findById(id).orElse(new Conta());
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 		
@@ -93,10 +87,27 @@ public class ContaService {
 		 Conta contaUpdated = contaRepository.save(conta);
 		
 		if(java.util.Objects.isNull(contaUpdated)) {
-			return new ResponseEntity<Conta>(HttpStatus.INTERNAL_SERVER_ERROR);		
+			return new ResponseEntity<ContaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<Conta>(HttpStatus.OK);
+		return new ResponseEntity<ContaResponse>(makeResponse(contaUpdated), HttpStatus.OK);
+	}
+	
+	private ContaResponse makeResponse(Conta contaSaved) {
+		ContaResponse retorno = new ContaResponse();
+		retorno.setId(contaSaved.getId());
+		retorno.setNome(contaSaved.getNome());
+		retorno.setSaldoInicial(contaSaved.getSaldoInicial());
+		retorno.setStatusSaldoInicial(contaSaved.getStatusSaldoInicial());
+		return retorno;
+	}
+	
+	private Conta convertContaSalvarRequestInConta(ContaSalvarRequest contaRequest) {
+		Conta retorno = new Conta();
+		retorno.setNome(contaRequest.getNome());
+		retorno.setSaldoInicial(contaRequest.getSaldoInicial());
+		retorno.setStatusSaldoInicial(contaRequest.getStatusSaldoInicial());
+		return retorno;
 	}
 
 }

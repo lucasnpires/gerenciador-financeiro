@@ -5,6 +5,7 @@ import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.
 import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_401;
 import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_403;
 import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_404;
+import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_412;
 import static br.com.lucas.gestorfinanceiroapi.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_500;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.lucas.gestorfinanceiroapi.data.Despesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.DespesaSalvarRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.request.DespesaUpdateRequest;
+import br.com.lucas.gestorfinanceiroapi.domain.response.DespesaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageDespesasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.ErroInfo;
 import br.com.lucas.gestorfinanceiroapi.util.AppConstantes;
@@ -68,5 +71,13 @@ public interface DespesaDefinition {
 	void excluir(
             @ApiParam(value = "Id da despesa", required = true)
             @PathVariable("id") Long id);
+	
+	@ApiOperation(value = "Atualizar despesa", notes = "Atualizar despesa", response = DespesaResponse.class)
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
+			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
+	ResponseEntity<?> atualizarDespesa(@PathVariable(name = "id") Long id,
+			@RequestBody(required = true) @Valid DespesaUpdateRequest update);
 
 }

@@ -2,18 +2,12 @@ package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
 
 import br.com.lucas.gestorfinanceiroapi.enums.StatusSaldoInicialEnum;
 import lombok.AllArgsConstructor;
@@ -36,10 +30,6 @@ public class Conta implements Serializable {
 	private Long id;
 
 	private String nome;
-
-	@OneToMany(fetch = FetchType.EAGER)
-	@NotFound(action = NotFoundAction.IGNORE)
-	private List<Despesa> despesaList;
 
 	@Enumerated
 	private StatusSaldoInicialEnum statusSaldoInicial;

@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
-import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
@@ -33,12 +32,12 @@ public class CategoriaService {
 	private CategoriaRepository categoriaRepository;
 	
 
-	public ResponseEntity<?> salvarCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
+	public ResponseEntity<CategoriaDespesaResponse> salvarCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
 		CategoriaDespesa categoria = convertCategoriaSalvarRequesttInCategoria(categoriaRequest);
 		CategoriaDespesa categoriaSaved = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaSaved)) {
-			return new ResponseEntity<Conta>(HttpStatus.INTERNAL_SERVER_ERROR);		
+			return new ResponseEntity<CategoriaDespesaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		return new ResponseEntity<CategoriaDespesaResponse>(makeResponse(categoriaSaved), HttpStatus.CREATED);
 	}
@@ -57,19 +56,13 @@ public class CategoriaService {
 		Page<CategoriaDespesa> listaCategorias = categoriaRepository.findAll(pageable);
 		BadRequestCustom.checkThrow(Objects.isNull(listaCategorias) || listaCategorias.getContent().isEmpty(), ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
 		
-		PageCategoriasResponse pageCategoriasResponse = new PageCategoriasResponse(GenericConvert.convertModelMapperToPageResponse(listaCategorias, new TypeToken<List<CategoriaDespesaResponse>>() {
-        }.getType()));
-		
+		PageCategoriasResponse pageCategoriasResponse = new PageCategoriasResponse(GenericConvert
+				.convertModelMapperToPageResponse(listaCategorias, new TypeToken<List<CategoriaDespesaResponse>>() {
+				}.getType()));
+
 		return pageCategoriasResponse;
 	}
 	
-
-	private CategoriaDespesa convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
-		CategoriaDespesa retorno = new CategoriaDespesa();
-		retorno.setDescricao(categoriaRequest.getDescricao());
-		retorno.setTipoCategoria(categoriaRequest.getTipoCategoria());
-		return retorno;
-	}
 
 	public void excluirCategoria(Long id) {
 		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
@@ -78,7 +71,7 @@ public class CategoriaService {
 		categoriaRepository.delete(categoria);
 	}
 
-	public ResponseEntity<CategoriaDespesa> atualizarCategoria(Long id, @Valid CategoriaUpdateRequest update) {
+	public ResponseEntity<CategoriaDespesaResponse> atualizarCategoria(Long id, @Valid CategoriaUpdateRequest update) {
 		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
@@ -92,10 +85,10 @@ public class CategoriaService {
 		CategoriaDespesa categoriaUpdated = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaUpdated)) {
-			return new ResponseEntity<CategoriaDespesa>(HttpStatus.INTERNAL_SERVER_ERROR);		
+			return new ResponseEntity<CategoriaDespesaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<CategoriaDespesa>(HttpStatus.OK);
+		return new ResponseEntity<CategoriaDespesaResponse>(makeResponse(categoriaUpdated), HttpStatus.OK);
 	}
 	
 	
@@ -104,6 +97,13 @@ public class CategoriaService {
 		retorno.setId(categoriaSaved.getId());
 		retorno.setDescricao(categoriaSaved.getDescricao());
 		retorno.setTipoCategoria(categoriaSaved.getTipoCategoria());
+		return retorno;
+	}
+	
+	private CategoriaDespesa convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
+		CategoriaDespesa retorno = new CategoriaDespesa();
+		retorno.setDescricao(categoriaRequest.getDescricao());
+		retorno.setTipoCategoria(categoriaRequest.getTipoCategoria());
 		return retorno;
 	}
 

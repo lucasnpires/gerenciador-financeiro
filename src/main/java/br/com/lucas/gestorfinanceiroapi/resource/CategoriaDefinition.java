@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
@@ -49,7 +48,8 @@ public interface CategoriaDefinition {
 			@ApiParam(value = "Id da categoria", required = true) @PathVariable(name = "id") Long id);
 
 	@ApiOperation(value = "Salvar categoria", notes = "Salvar categoria")
-	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
 			@ApiResponse(code = 403, message = MENSAGEM_GLOBAL_403, response = ErroInfo.class),
 			@ApiResponse(code = 404, message = MENSAGEM_GLOBAL_404, response = ErroInfo.class),
@@ -69,7 +69,7 @@ public interface CategoriaDefinition {
 	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
-	ResponseEntity<CategoriaDespesa> atualizarCategoria(@PathVariable(name = "id") Long id,
+	ResponseEntity<CategoriaDespesaResponse> atualizarCategoria(@PathVariable(name = "id") Long id,
 			@RequestBody(required = true) @Valid CategoriaUpdateRequest request);
 
 }

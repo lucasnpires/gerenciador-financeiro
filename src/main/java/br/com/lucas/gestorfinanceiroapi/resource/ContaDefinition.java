@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.ContaUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.ContaResponse;
