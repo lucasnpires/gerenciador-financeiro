@@ -4,13 +4,9 @@ package br.com.lucas.gestorfinanceiroapi.exception;
 
 import static java.util.Arrays.asList;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
-import static org.springframework.http.HttpStatus.PRECONDITION_FAILED;
-import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -24,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public enum ExceptionsMessagesEnum {
 	
 	CATEGORIA_NAO_ENCONTRADA(NOT_FOUND, "Categoria não encontrada", NotFoundCustom.class),
+	CARTAO_NAO_ENCONTRADO(NOT_FOUND, "Cartão não encontrado", NotFoundCustom.class),
 	CONTA_NAO_ENCONTRADA(NOT_FOUND, "Conta não encontrada", NotFoundCustom.class),
 	DESPESA_NAO_ENCONTRADA(NOT_FOUND, "Despesa não encontrada", NotFoundCustom.class),
 	REQUIRED_ID(BAD_REQUEST, "Id requerido" , BadRequestCustom.class),

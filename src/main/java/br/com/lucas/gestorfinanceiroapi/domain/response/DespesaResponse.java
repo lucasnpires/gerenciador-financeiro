@@ -32,18 +32,19 @@ public class DespesaResponse implements Serializable{
 	@ApiModelProperty(value = "Identificador da conta", position = 2)
 	private String descricao;
 
-	@ApiModelProperty(value = "Identificador da conta", position = 3)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@DateTimeFormat(iso = ISO.DATE)
+	@ApiModelProperty(value = "Data da despesa", position = 3)
+	private LocalDate dataDespesa;
+	
+	@ApiModelProperty(value = "Valor total da despesa", position = 4)
+	private BigDecimal total;
+
+	@ApiModelProperty(value = "Identificador da conta", position = 5)
 	private Conta conta;
 
-	@ApiModelProperty(value = "Identificador da categoria", position = 4)
+	@ApiModelProperty(value = "Identificador da categoria", position = 6)
 	private Categoria categoria;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    @DateTimeFormat(iso = ISO.DATE)
-    @ApiModelProperty(value = "Data da despesa", position = 5)
-	private LocalDate dataDespesa;
-
-    @ApiModelProperty(value = "Valor total da despesa", position = 6)
-	private BigDecimal total;
 
 }

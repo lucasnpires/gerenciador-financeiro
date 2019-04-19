@@ -15,9 +15,9 @@ public interface AppConstantes {
 
 	String PATH_ID = "/{id}";
 
-	String PATH_CARTOES = "/cartoes";
+	String PATH_CARTOES = "/cartao";
 	
-	String PATH_USUARIOS = "/usuarios";
+	String PATH_USUARIOS = "/usuario";
 
 	String PATH_TOKENS = "/tokens";
 

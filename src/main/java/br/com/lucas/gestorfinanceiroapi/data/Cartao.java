@@ -37,7 +37,7 @@ public class Cartao implements Serializable {
 	@Enumerated
 	private BandeiraEnum bandeira;
 	
-	private Integer dataFechamento;
+	private Integer diaFechamento;
 	
 	private Integer diaPagamento;
 	

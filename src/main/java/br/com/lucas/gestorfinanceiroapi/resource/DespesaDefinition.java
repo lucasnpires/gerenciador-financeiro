@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = AppConstantes.PATH_DESPESAS, produces = APPLICATION_JSON_UTF8_VALUE, tags = { "Despesas" })
 public interface DespesaDefinition {
 
-	@ApiOperation(value = "Listar as despesas", notes = "Listar as despesas", response = PageDespesasResponse.class)
+	@ApiOperation(value = "Listar as Despesas", notes = "Listar as Despesas", response = PageDespesasResponse.class)
 	@ApiResponses({ 
 			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -41,7 +41,7 @@ public interface DespesaDefinition {
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> listarDespesas(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size);
 
-	@ApiOperation(value = "Buscar despesa por id", notes = "Buscar despesa por id", response = Despesa.class)
+	@ApiOperation(value = "Buscar Despesa por id", notes = "Buscar Despesa por id", response = Despesa.class)
 	@ApiResponses({ 
 		@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 		@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -50,7 +50,7 @@ public interface DespesaDefinition {
 		@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> buscarDespesaPorId(@PathVariable(name = "id") Long id);
 
-	@ApiOperation(value = "Salvar despesa", notes = "Salvar despesa")
+	@ApiOperation(value = "Salvar uma Despesa", notes = "Salvar uma Despesa")
 	@ApiResponses({ 
 		@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 		@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -60,7 +60,7 @@ public interface DespesaDefinition {
 	ResponseEntity<?> salvarDespesa(@RequestBody(required = true) @Valid DespesaSalvarRequest despesa);
 	
 	
-	@ApiOperation(value = "Excluir uma despesa", notes = "Excluir uma despesa")
+	@ApiOperation(value = "Excluir uma Despesa", notes = "Excluir uma Despesa")
     @ApiResponses({
          @ApiResponse(code = 200, message = MENSAGEM_GLOBAL_200),
          @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
@@ -72,7 +72,7 @@ public interface DespesaDefinition {
             @ApiParam(value = "Id da despesa", required = true)
             @PathVariable("id") Long id);
 	
-	@ApiOperation(value = "Atualizar despesa", notes = "Atualizar despesa", response = DespesaResponse.class)
+	@ApiOperation(value = "Atualizar uma Despesa", notes = "Atualizar uma Despesa", response = DespesaResponse.class)
 	@ApiResponses({ 
 			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),

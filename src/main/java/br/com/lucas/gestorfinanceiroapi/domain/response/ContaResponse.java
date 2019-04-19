@@ -1,5 +1,6 @@
 package br.com.lucas.gestorfinanceiroapi.domain.response;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.EnumType;
@@ -18,8 +19,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @ApiModel(value = "ContaResponse", description = "ContaResponse")
-public class ContaResponse {
-	
+public class ContaResponse implements Serializable {
+	private static final long serialVersionUID = 2047719982018417835L;
+
 	@ApiModelProperty(value = "Id da conta", position = 1)
 	private Long id;
 

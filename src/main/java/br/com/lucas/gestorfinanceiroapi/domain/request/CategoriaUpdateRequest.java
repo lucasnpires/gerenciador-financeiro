@@ -1,5 +1,7 @@
 package br.com.lucas.gestorfinanceiroapi.domain.request;
 
+import java.io.Serializable;
+
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Size;
@@ -23,8 +25,9 @@ import lombok.Setter;
 @Builder
 @JsonInclude(value=Include.NON_NULL)
 @ApiModel(value="Objeto de atualização da categoria")
-public class CategoriaUpdateRequest {
-	
+public class CategoriaUpdateRequest implements Serializable {
+	private static final long serialVersionUID = 5590844062157336389L;
+
 	@Size(max = 100, message = "quantidade de caracteres deve ser menor que 100")
 	@ApiModelProperty(value = "Descrição da categoria", example = "Supermercado", position = 1)
 	private String descricao;

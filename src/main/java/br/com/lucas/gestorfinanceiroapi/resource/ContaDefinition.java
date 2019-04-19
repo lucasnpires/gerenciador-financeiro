@@ -31,7 +31,7 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = AppConstantes.PATH_CONTAS, produces = APPLICATION_JSON_UTF8_VALUE, tags = { "Contas" })
 public interface ContaDefinition {
 	
-	@ApiOperation(value = "Listar as contas", notes = "Listar as contas", response = PageContasResponse.class)
+	@ApiOperation(value = "Listar as Contas", notes = "Listar as contas", response = PageContasResponse.class)
 	@ApiResponses({ 
 			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -40,7 +40,7 @@ public interface ContaDefinition {
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> listarContas(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size);
 
-	@ApiOperation(value = "Buscar conta por id", notes = "Buscar conta por id", response = ContaResponse.class)
+	@ApiOperation(value = "Buscar Conta por id", notes = "Buscar Conta por id", response = ContaResponse.class)
 	@ApiResponses({ 
 		@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 		@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -49,7 +49,7 @@ public interface ContaDefinition {
 		@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> buscarContaPorId(@PathVariable(name = "id") Long id);
 
-	@ApiOperation(value = "Salvar conta", notes = "Salvar conta")
+	@ApiOperation(value = "Salvar uma Conta", notes = "Salvar uma Conta")
 	@ApiResponses({ 
 		@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 		@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
@@ -58,7 +58,7 @@ public interface ContaDefinition {
 		@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<?> salvarDespesa(@RequestBody(required = true) @Valid ContaSalvarRequest conta);
 	
-	@ApiOperation(value = "Excluir uma conta", notes = "Excluir uma conta")
+	@ApiOperation(value = "Excluir uma Conta", notes = "Excluir uma Conta")
     @ApiResponses({
          @ApiResponse(code = 200, message = MENSAGEM_GLOBAL_200),
          @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
@@ -70,7 +70,7 @@ public interface ContaDefinition {
             @ApiParam(value = "Id da conta", required = true)
             @PathVariable("id") Long id);
 	
-	@ApiOperation(value = "Atualizar Conta", notes = "Atualizar Conta", response = ContaResponse.class)
+	@ApiOperation(value = "Atualizar uma Conta", notes = "Atualizar uma Conta", response = ContaResponse.class)
 	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
