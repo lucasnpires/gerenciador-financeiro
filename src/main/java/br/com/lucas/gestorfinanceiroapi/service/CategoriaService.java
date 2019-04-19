@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
+import br.com.lucas.gestorfinanceiroapi.data.Categoria;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CategoriaUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
@@ -33,8 +33,8 @@ public class CategoriaService {
 	
 
 	public ResponseEntity<CategoriaDespesaResponse> salvarCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
-		CategoriaDespesa categoria = convertCategoriaSalvarRequesttInCategoria(categoriaRequest);
-		CategoriaDespesa categoriaSaved = categoriaRepository.save(categoria);
+		Categoria categoria = convertCategoriaSalvarRequesttInCategoria(categoriaRequest);
+		Categoria categoriaSaved = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaSaved)) {
 			return new ResponseEntity<CategoriaDespesaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
@@ -44,7 +44,7 @@ public class CategoriaService {
 
 
 	public ResponseEntity<CategoriaDespesaResponse> buscarCategoriaPorId(Long id) {
-		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
+		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		return new ResponseEntity<CategoriaDespesaResponse>(makeResponse(categoria), HttpStatus.OK);
@@ -53,7 +53,7 @@ public class CategoriaService {
 	public PageCategoriasResponse listarCategorias(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
 		
-		Page<CategoriaDespesa> listaCategorias = categoriaRepository.findAll(pageable);
+		Page<Categoria> listaCategorias = categoriaRepository.findAll(pageable);
 		BadRequestCustom.checkThrow(Objects.isNull(listaCategorias) || listaCategorias.getContent().isEmpty(), ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
 		
 		PageCategoriasResponse pageCategoriasResponse = new PageCategoriasResponse(GenericConvert
@@ -65,14 +65,14 @@ public class CategoriaService {
 	
 
 	public void excluirCategoria(Long id) {
-		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
+		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		categoriaRepository.delete(categoria);
 	}
 
 	public ResponseEntity<CategoriaDespesaResponse> atualizarCategoria(Long id, @Valid CategoriaUpdateRequest update) {
-		CategoriaDespesa categoria = categoriaRepository.findById(id).orElse(new CategoriaDespesa());
+		Categoria categoria = categoriaRepository.findById(id).orElse(new Categoria());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 		
 		 if (Objects.nonNull(update.getDescricao()))
@@ -82,7 +82,7 @@ public class CategoriaService {
 			 categoria.setTipoCategoria(update.getTipoCategoria());
 		 
 		
-		CategoriaDespesa categoriaUpdated = categoriaRepository.save(categoria);
+		Categoria categoriaUpdated = categoriaRepository.save(categoria);
 		
 		if(java.util.Objects.isNull(categoriaUpdated)) {
 			return new ResponseEntity<CategoriaDespesaResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
@@ -92,7 +92,7 @@ public class CategoriaService {
 	}
 	
 	
-	private CategoriaDespesaResponse makeResponse(CategoriaDespesa categoriaSaved) {
+	private CategoriaDespesaResponse makeResponse(Categoria categoriaSaved) {
 		CategoriaDespesaResponse retorno = new CategoriaDespesaResponse();
 		retorno.setId(categoriaSaved.getId());
 		retorno.setDescricao(categoriaSaved.getDescricao());
@@ -100,8 +100,8 @@ public class CategoriaService {
 		return retorno;
 	}
 	
-	private CategoriaDespesa convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
-		CategoriaDespesa retorno = new CategoriaDespesa();
+	private Categoria convertCategoriaSalvarRequesttInCategoria(@Valid CategoriaSalvarRequest categoriaRequest) {
+		Categoria retorno = new Categoria();
 		retorno.setDescricao(categoriaRequest.getDescricao());
 		retorno.setTipoCategoria(categoriaRequest.getTipoCategoria());
 		return retorno;

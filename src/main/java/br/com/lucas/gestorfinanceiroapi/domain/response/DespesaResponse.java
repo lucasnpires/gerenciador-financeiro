@@ -9,6 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -31,10 +33,10 @@ public class DespesaResponse implements Serializable{
 	private String descricao;
 
 	@ApiModelProperty(value = "Identificador da conta", position = 3)
-	private Long idConta;
+	private Conta conta;
 
 	@ApiModelProperty(value = "Identificador da categoria", position = 4)
-	private Long idCategoria;
+	private Categoria categoria;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = ISO.DATE)

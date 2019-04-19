@@ -57,7 +57,7 @@ public class DespesaResource implements DespesaDefinition {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping(value = AppConstantes.PATH_ID, produces = APPLICATION_JSON_UTF8_VALUE)
 	public void excluir(Long id) {
-		despesaService.excluirConta(id);
+		despesaService.excluirDespesa(id);
 	}
 
 	@PatchMapping(value = AppConstantes.PATH_ID, produces = APPLICATION_JSON_UTF8_VALUE)

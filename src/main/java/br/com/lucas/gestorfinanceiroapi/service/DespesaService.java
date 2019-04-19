@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.lucas.gestorfinanceiroapi.data.CategoriaDespesa;
+import br.com.lucas.gestorfinanceiroapi.data.Categoria;
 import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.data.Despesa;
 import br.com.lucas.gestorfinanceiroapi.domain.request.DespesaSalvarRequest;
@@ -48,7 +48,7 @@ public class DespesaService {
 
 		BadRequestCustom.checkThrow(Objects.isNull(listaDespesas) || listaDespesas.getContent().isEmpty(),
 				ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
-
+		
 		PageDespesasResponse pageDespesasResponse = new PageDespesasResponse(
 				GenericConvert.convertModelMapperToPageResponse(listaDespesas, new TypeToken<List<DespesaResponse>>() {
 				}.getType()));
@@ -68,8 +68,8 @@ public class DespesaService {
 		Conta conta = contaRepository.findById(despesaRequest.getIdConta()).orElse(new Conta());
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 
-		CategoriaDespesa categoria = categoriaRepository.findById(despesaRequest.getIdCategoria())
-				.orElse(new CategoriaDespesa());
+		Categoria categoria = categoriaRepository.findById(despesaRequest.getIdCategoria())
+				.orElse(new Categoria());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 
 		Despesa despesa = convertDespesaRequestInDespesa(despesaRequest, conta, categoria);
@@ -83,7 +83,7 @@ public class DespesaService {
 		return new ResponseEntity<DespesaResponse>(makeResponse(despesa), HttpStatus.CREATED);
 	}
 
-	public void excluirConta(Long id) {
+	public void excluirDespesa(Long id) {
 		Despesa despesa = despesaRepository.findById(id).orElse(new Despesa());
 		NotFoundCustom.checkThrow(Objects.isNull(despesa.getId()), ExceptionsMessagesEnum.DESPESA_NAO_ENCONTRADA);
 
@@ -98,8 +98,8 @@ public class DespesaService {
 		Conta conta = contaRepository.findById(update.getIdConta()).orElse(new Conta());
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 
-		CategoriaDespesa categoria = categoriaRepository.findById(update.getIdCategoria())
-				.orElse(new CategoriaDespesa());
+		Categoria categoria = categoriaRepository.findById(update.getIdCategoria())
+				.orElse(new Categoria());
 		NotFoundCustom.checkThrow(Objects.isNull(categoria.getId()), ExceptionsMessagesEnum.CATEGORIA_NAO_ENCONTRADA);
 
 		if (Objects.nonNull(update.getDescricao()))
@@ -130,19 +130,20 @@ public class DespesaService {
 		DespesaResponse retorno = new DespesaResponse();
 		retorno.setId(despesaSaved.getId());
 		retorno.setDescricao(despesaSaved.getDescricao());
-		retorno.setIdCategoria(despesaSaved.getCategoria().getId());
-		retorno.setIdConta(despesaSaved.getConta().getId());
 		retorno.setDataDespesa(despesaSaved.getDataDespesa());
 		retorno.setTotal(despesaSaved.getTotal());
+		retorno.setConta(despesaSaved.getConta());
+		retorno.setCategoria(despesaSaved.getCategoria());
 		return retorno;
 	}
 
-	private Despesa convertDespesaRequestInDespesa(DespesaSalvarRequest despesaRequest, Conta conta, CategoriaDespesa categoria) {
+	private Despesa convertDespesaRequestInDespesa(DespesaSalvarRequest despesaRequest, Conta conta, Categoria categoria) {
 		Despesa retorno = new Despesa();
 		retorno.setDescricao(despesaRequest.getDescricao());
-		retorno.setCategoria(categoria);
 		retorno.setTotal(despesaRequest.getTotal());
+		retorno.setCategoria(categoria);
 		retorno.setConta(conta);
+		retorno.setDataDespesa(despesaRequest.getDataDespesa());
 		return retorno;
 	}
 }

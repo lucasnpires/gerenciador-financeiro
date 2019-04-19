@@ -11,9 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -36,12 +33,10 @@ public class Despesa implements Serializable {
 	private String descricao;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@NotFound(action = NotFoundAction.IGNORE)
 	private Conta conta;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@NotFound(action = NotFoundAction.IGNORE)
-	private CategoriaDespesa categoria;
+	private Categoria categoria;
 
 	private LocalDate dataDespesa;
 
