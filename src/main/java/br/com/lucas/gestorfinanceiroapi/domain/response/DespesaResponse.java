@@ -29,7 +29,7 @@ public class DespesaResponse implements Serializable{
 	@ApiModelProperty(value = "Identificador da despesa", position = 1)
 	private Long id;
 	
-	@ApiModelProperty(value = "Identificador da conta", position = 2)
+	@ApiModelProperty(value = "Descrição da conta", position = 2)
 	private String descricao;
 
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")

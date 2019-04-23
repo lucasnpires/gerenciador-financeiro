@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Builder
 @JsonInclude(value=Include.NON_NULL)
-@ApiModel(value="Objeto de atualização da categoria")
+@ApiModel(value = "CartaoUpdateRequest", description = "CartaoUpdateRequest")
 public class CartaoUpdateRequest implements Serializable {
 	private static final long serialVersionUID = -5157346104570220229L;
 

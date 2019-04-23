@@ -23,6 +23,7 @@ public enum ExceptionsMessagesEnum {
 	CARTAO_NAO_ENCONTRADO(NOT_FOUND, "Cartão não encontrado", NotFoundCustom.class),
 	CONTA_NAO_ENCONTRADA(NOT_FOUND, "Conta não encontrada", NotFoundCustom.class),
 	DESPESA_NAO_ENCONTRADA(NOT_FOUND, "Despesa não encontrada", NotFoundCustom.class),
+	RECEITA_NAO_ENCONTRADA(NOT_FOUND, "Receita não encontrada", NotFoundCustom.class),
 	REQUIRED_ID(BAD_REQUEST, "Id requerido" , BadRequestCustom.class),
 
     GLOBAL_BAD_REQUEST(BAD_REQUEST, "Falha na requisição" , BadRequestCustom.class),

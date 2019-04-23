@@ -44,7 +44,11 @@ public class Conta implements Serializable {
 	private BigDecimal saldoInicial;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "conta", cascade = {CascadeType.PERSIST})
+	@OneToMany(mappedBy = "contaDespesa", cascade = {CascadeType.PERSIST})
     private List<Despesa> despesas;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "contaReceita", cascade = {CascadeType.PERSIST})
+    private List<Receita> receitas;
 
 }

@@ -8,6 +8,8 @@ public interface AppConstantes {
 	String PATH_CATEGORIAS = "/categoria";
 	
 	String PATH_CONTAS = "/conta";
+	
+	String PATH_RECEITAS = "/receita";
 
 	String PATH_LISTAR = "/listar";
 

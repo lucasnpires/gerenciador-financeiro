@@ -1,7 +1,6 @@
 package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -17,31 +16,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Despesa implements Serializable {
-	private static final long serialVersionUID = -8166406585990544021L;
+public class DespesaCartao implements Serializable{
+	private static final long serialVersionUID = -1078016651146805111L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String descricao;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Conta contaDespesa;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Categoria categoriaDespesa;
-
+	
 	private LocalDate dataDespesa;
 	
-	private Boolean estaPago;
-
-	private BigDecimal total;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Categoria categoriaDespesaCartao;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Cartao cartaoDespesa;
+	
+	private String fatura;
+	
+	private Boolean parcelado;
+	
+	private Integer qtdParcelas;
 
 }

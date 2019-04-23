@@ -106,10 +106,10 @@ public class DespesaService {
 			despesa.setDescricao(update.getDescricao());
 
 		if (Objects.nonNull(update.getIdConta()))
-			despesa.setConta(conta);
+			despesa.setContaDespesa(conta);
 
 		if (Objects.nonNull(update.getIdCategoria()))
-			despesa.setCategoria(categoria);
+			despesa.setCategoriaDespesa(categoria);
 
 		if (Objects.nonNull(update.getDataDespesa()))
 			despesa.setDataDespesa(update.getDataDespesa());
@@ -132,8 +132,8 @@ public class DespesaService {
 		retorno.setDescricao(despesaSaved.getDescricao());
 		retorno.setDataDespesa(despesaSaved.getDataDespesa());
 		retorno.setTotal(despesaSaved.getTotal());
-		retorno.setConta(despesaSaved.getConta());
-		retorno.setCategoria(despesaSaved.getCategoria());
+		retorno.setConta(despesaSaved.getContaDespesa());
+		retorno.setCategoria(despesaSaved.getCategoriaDespesa());
 		return retorno;
 	}
 
@@ -141,8 +141,8 @@ public class DespesaService {
 		Despesa retorno = new Despesa();
 		retorno.setDescricao(despesaRequest.getDescricao());
 		retorno.setTotal(despesaRequest.getTotal());
-		retorno.setCategoria(categoria);
-		retorno.setConta(conta);
+		retorno.setCategoriaDespesa(categoria);
+		retorno.setContaDespesa(conta);
 		retorno.setDataDespesa(despesaRequest.getDataDespesa());
 		return retorno;
 	}

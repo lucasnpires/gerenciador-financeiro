@@ -2,13 +2,18 @@ package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.lucas.gestorfinanceiroapi.enums.BandeiraEnum;
 import lombok.AllArgsConstructor;
@@ -43,6 +48,10 @@ public class Cartao implements Serializable {
 	
 	@OneToOne
 	private Conta conta;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "cartaoDespesa", cascade = {CascadeType.PERSIST})
+	private List<DespesaCartao> despesasCartoes;
 	
 
 }

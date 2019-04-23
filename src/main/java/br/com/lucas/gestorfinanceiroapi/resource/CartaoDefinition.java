@@ -31,7 +31,8 @@ import io.swagger.annotations.ApiResponses;
 public interface CartaoDefinition {
 
 	@ApiOperation(value = "Listar os Cartões", notes = "Listar os Cartões", response = PageCartoesResponse.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
 			@ApiResponse(code = 403, message = MENSAGEM_GLOBAL_403, response = ErroInfo.class),
 			@ApiResponse(code = 404, message = MENSAGEM_GLOBAL_404, response = ErroInfo.class),
@@ -39,7 +40,8 @@ public interface CartaoDefinition {
 	ResponseEntity<?> listarCartoes(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "50") Integer size);
 
 	@ApiOperation(value = "Buscar Cartão por id", notes = "Buscar Cartão por id", response = CartaoResponse.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
 			@ApiResponse(code = 403, message = MENSAGEM_GLOBAL_403, response = ErroInfo.class),
 			@ApiResponse(code = 404, message = MENSAGEM_GLOBAL_404, response = ErroInfo.class),
@@ -57,7 +59,8 @@ public interface CartaoDefinition {
 	ResponseEntity<?> salvarCartao(@RequestBody(required = true) @Valid CartaoSalvarRequest cartao);
 
 	@ApiOperation(value = "Excluir um Cartão", notes = "Excluir um Cartão")
-	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 401, message = MENSAGEM_GLOBAL_401, response = ErroInfo.class),
 			@ApiResponse(code = 403, message = MENSAGEM_GLOBAL_403, response = ErroInfo.class),
 			@ApiResponse(code = 404, message = MENSAGEM_GLOBAL_404, response = ErroInfo.class),
@@ -66,7 +69,8 @@ public interface CartaoDefinition {
 			@ApiParam(value = "Id do Cartão, (Ex. 1)", example = "1", required = true) @PathVariable(name = "id") Long id);
 
 	@ApiOperation(value = "Atualizar um Cartão", notes = "Atualizar um Cartão", response = CartaoResponse.class)
-	@ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
+	@ApiResponses({ 
+			@ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErroInfo.class),
 			@ApiResponse(code = 412, message = MENSAGEM_GLOBAL_412, response = ErroInfo.class),
 			@ApiResponse(code = 500, message = MENSAGEM_GLOBAL_500, response = ErroInfo.class) })
 	ResponseEntity<CartaoResponse> atualizarCartao(@PathVariable(name = "id") Long id,

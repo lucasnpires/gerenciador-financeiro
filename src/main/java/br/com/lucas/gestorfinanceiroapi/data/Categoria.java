@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.lucas.gestorfinanceiroapi.enums.CorEnum;
+import br.com.lucas.gestorfinanceiroapi.enums.StatusEnum;
 import br.com.lucas.gestorfinanceiroapi.enums.TipoCategoriaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -41,7 +43,21 @@ public class Categoria implements Serializable {
 	private TipoCategoriaEnum tipoCategoria;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "categoria", cascade = {CascadeType.PERSIST})
+	@OneToMany(mappedBy = "categoriaDespesa", cascade = {CascadeType.PERSIST})
     private List<Despesa> despesas;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "categoriaReceita", cascade = {CascadeType.PERSIST})
+    private List<Receita> receitas;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "categoriaDespesaCartao", cascade = {CascadeType.PERSIST})
+	private List<DespesaCartao> despesasCartoes;
+	
+	@Enumerated
+	private CorEnum cor;
+	
+	@Enumerated
+	private StatusEnum status;
 	
 }

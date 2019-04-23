@@ -15,17 +15,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.lucas.gestorfinanceiroapi.data.Cartao;
-import br.com.lucas.gestorfinanceiroapi.data.Categoria;
+import br.com.lucas.gestorfinanceiroapi.data.Conta;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CartaoSalvarRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.request.CartaoUpdateRequest;
 import br.com.lucas.gestorfinanceiroapi.domain.response.CartaoResponse;
-import br.com.lucas.gestorfinanceiroapi.domain.response.CategoriaDespesaResponse;
 import br.com.lucas.gestorfinanceiroapi.domain.response.PageCartoesResponse;
-import br.com.lucas.gestorfinanceiroapi.domain.response.PageCategoriasResponse;
 import br.com.lucas.gestorfinanceiroapi.exception.BadRequestCustom;
 import br.com.lucas.gestorfinanceiroapi.exception.ExceptionsMessagesEnum;
 import br.com.lucas.gestorfinanceiroapi.exception.NotFoundCustom;
 import br.com.lucas.gestorfinanceiroapi.repository.CartaoRepository;
+import br.com.lucas.gestorfinanceiroapi.repository.ContaRepository;
 import br.com.lucas.gestorfinanceiroapi.util.GenericConvert;
 
 @Service
@@ -33,6 +32,9 @@ public class CartaoService {
 
 	@Autowired
 	private CartaoRepository cartaoRepository;
+	
+	@Autowired
+	private ContaRepository contaRepository;
 
 	public PageCartoesResponse listarCartoes(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size);
@@ -56,7 +58,12 @@ public class CartaoService {
 	}
 
 	public ResponseEntity<CartaoResponse> salvarCartao(@Valid CartaoSalvarRequest cartaoRequest) {
-		Cartao cartao = convertCartaoSalvarRequestInCartao(cartaoRequest);
+		// busca a conta pelo id informado e verifica se existe
+		Conta conta = contaRepository.findById(cartaoRequest.getIdConta()).orElse(new Conta());
+		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
+
+		Cartao cartao = convertCartaoSalvarRequestInCartao(cartaoRequest, conta);
+		
 		Cartao cartaoSaved = cartaoRepository.save(cartao);
 
 		if (java.util.Objects.isNull(cartaoSaved)) {
@@ -77,6 +84,9 @@ public class CartaoService {
 		Cartao cartao = cartaoRepository.findById(id).orElse(new Cartao());
 		NotFoundCustom.checkThrow(Objects.isNull(cartao.getId()), ExceptionsMessagesEnum.CARTAO_NAO_ENCONTRADO);
 		
+		Conta conta = contaRepository.findById(update.getIdConta()).orElse(new Conta());	
+		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
+		
 		 if (Objects.nonNull(update.getDescricao()))
 			 cartao.setDescricao(update.getDescricao());
 		 
@@ -89,6 +99,11 @@ public class CartaoService {
 		 if (Objects.nonNull(update.getDiaPagamento()))
 			 cartao.setDiaPagamento(update.getDiaPagamento());
 		 
+		 if (Objects.nonNull(update.getBandeira()))
+			 cartao.setBandeira(update.getBandeira());
+		 
+		 if (Objects.nonNull(update.getIdConta()))
+			 cartao.setConta(conta);
 		
 		 Cartao cartaoUpdated = cartaoRepository.save(cartao);
 		
@@ -99,15 +114,26 @@ public class CartaoService {
 		return new ResponseEntity<CartaoResponse>(makeResponse(cartaoUpdated), HttpStatus.OK);
 	}
 
-	private Cartao convertCartaoSalvarRequestInCartao(@Valid CartaoSalvarRequest cartaoRequest) {
+	private Cartao convertCartaoSalvarRequestInCartao(CartaoSalvarRequest cartaoRequest, Conta conta) {
 		Cartao cartao = new Cartao();
-
+		cartao.setDescricao(cartaoRequest.getDescricao());
+		cartao.setBandeira(cartaoRequest.getBandeira());
+		cartao.setConta(conta);
+		cartao.setDiaFechamento(cartaoRequest.getDiaFechamento());
+		cartao.setDiaPagamento(cartaoRequest.getDiaPagamento());
+		cartao.setLimite(cartaoRequest.getLimite());
 		return cartao;
 	}
 
 	private CartaoResponse makeResponse(Cartao cartaoSaved) {
 		CartaoResponse cartaoResponse = new CartaoResponse();
-
+		cartaoResponse.setId(cartaoSaved.getId());
+		cartaoResponse.setDescricao(cartaoSaved.getDescricao());
+		cartaoResponse.setBandeira(cartaoSaved.getBandeira());
+		cartaoResponse.setDiaFechamento(cartaoSaved.getDiaFechamento());
+		cartaoResponse.setDiaPagamento(cartaoSaved.getDiaPagamento());
+		cartaoResponse.setConta(cartaoSaved.getConta());
+		cartaoResponse.setLimite(cartaoSaved.getLimite());
 		return cartaoResponse;
 	}
 

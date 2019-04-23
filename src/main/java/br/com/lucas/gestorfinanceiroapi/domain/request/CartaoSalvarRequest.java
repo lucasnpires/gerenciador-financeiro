@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-@ApiModel(value = "CategoriaSalvarRequest", description = "CategoriaSalvarRequest")
+@ApiModel(value = "CartaoSalvarRequest", description = "CartaoSalvarRequest")
 public class CartaoSalvarRequest implements Serializable {
 	private static final long serialVersionUID = 2940923548708214833L;
 
