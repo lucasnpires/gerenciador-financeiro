@@ -1,6 +1,7 @@
 package br.com.lucas.gestorfinanceiroapi.data;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
@@ -45,5 +46,7 @@ public class DespesaCartao implements Serializable{
 	private Boolean parcelado;
 	
 	private Integer qtdParcelas;
+	
+	private BigDecimal total;
 
 }

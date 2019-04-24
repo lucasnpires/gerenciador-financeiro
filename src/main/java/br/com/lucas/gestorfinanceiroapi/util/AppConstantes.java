@@ -11,6 +11,8 @@ public interface AppConstantes {
 	
 	String PATH_RECEITAS = "/receita";
 
+	String PATH_DESPESAS_CARTAO = "/despesa-cartao";
+
 	String PATH_LISTAR = "/listar";
 
 	String PATH_VALIDAR = "/validar";
@@ -22,5 +24,9 @@ public interface AppConstantes {
 	String PATH_USUARIOS = "/usuario";
 
 	String PATH_TOKENS = "/tokens";
+	
+	String TAG_CONTAS = "Contas";
+
+	String TAG_DESPESAS_CARTAO = "Despesas Cartão";
 
 }

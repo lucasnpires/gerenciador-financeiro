@@ -49,7 +49,7 @@ public class ContaResource implements ContaDefinition {
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<?> salvarDespesa(@RequestBody(required = true) @Valid ContaSalvarRequest conta) {
+	public ResponseEntity<?> salvarConta(@RequestBody(required = true) @Valid ContaSalvarRequest conta) {
 		return contaService.salvarConta(conta);
 	}
 

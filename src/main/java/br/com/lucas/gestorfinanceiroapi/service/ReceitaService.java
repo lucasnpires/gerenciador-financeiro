@@ -116,14 +116,29 @@ public class ReceitaService {
 	}
 
 	private ReceitaResponse makeResponse(Receita receita) {
-		// TODO Auto-generated method stub
-		return null;
+		ReceitaResponse response = new ReceitaResponse();
+		response.setId(receita.getId());
+		response.setCategoriaReceita(receita.getCategoriaReceita());
+		response.setContaReceita(receita.getContaReceita());
+		response.setDataReceita(receita.getDataReceita());
+		response.setDescricao(receita.getDescricao());
+		response.setEstaPago(receita.getEstaPago());
+		response.setStatusEnum(receita.getStatusEnum());
+		response.setTotal(receita.getTotal());
+		return response;
 	}
 
 	private Receita convertReceitaRequestInReceita(@Valid ReceitaSalvarRequest receitaRequest, Conta conta,
 			Categoria categoria) {
-		// TODO Auto-generated method stub
-		return null;
+		Receita receita = new Receita();
+		receita.setDescricao(receitaRequest.getDescricao());
+		receita.setDataReceita(receitaRequest.getDataReceita());
+		receita.setEstaPago(receitaRequest.getEstaPago());
+		receita.setStatusEnum(receitaRequest.getStatusEnum());
+		receita.setTotal(receitaRequest.getTotal());
+		receita.setCategoriaReceita(categoria);
+		receita.setContaReceita(conta);
+		return receita;
 	}
 
 }

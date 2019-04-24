@@ -33,23 +33,25 @@ public class ReceitaResponse implements Serializable{
 	@ApiModelProperty(value = "Descrição da Receita", position = 2)
 	private String descricao;
 
-	@ApiModelProperty(value = "Identificador da Conta", position = 3)
-	private Conta contaReceita;
-	
-	@ApiModelProperty(value = "Identificador da Categoria", position = 4)
-	private Categoria categoriaReceita;
-	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	@DateTimeFormat(iso = ISO.DATE)
-	@ApiModelProperty(value = "Data da receita", position = 5)
+	@ApiModelProperty(value = "Data da receita", position = 3)
 	private LocalDate dataReceita;
-	
-	@ApiModelProperty(value = "Identificador se a Receita está paga ou não", position = 6)
+
+	@ApiModelProperty(value = "Identificador se a Receita está paga ou não", position = 4)
 	private Boolean estaPago;
 	
-	@ApiModelProperty(value = "Valor total da Receita", position = 7)
+	@ApiModelProperty(value = "Valor total da Receita", position = 5)
 	private BigDecimal total;
 	
-	@ApiModelProperty(value = "Status da Receita", position = 8)
+	@ApiModelProperty(value = "Status da Receita", position = 6)
 	private StatusEnum statusEnum;
+
+	@ApiModelProperty(value = "Identificador da Conta", position = 7)
+	private Conta contaReceita;
+	
+	@ApiModelProperty(value = "Identificador da Categoria", position = 8)
+	private Categoria categoriaReceita;
+	
+	
 }
