@@ -1,5 +1,8 @@
 package br.com.lucas.gestorfinanceiroapi.service;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -40,36 +43,34 @@ public class CartaoService {
 		Pageable pageable = PageRequest.of(page, size);
 
 		Page<Cartao> listaCartoes = cartaoRepository.findAll(pageable);
-		BadRequestCustom.checkThrow(Objects.isNull(listaCartoes) || listaCartoes.getContent().isEmpty(),
+		BadRequestCustom.checkThrow(isNull(listaCartoes),
 				ExceptionsMessagesEnum.PESQUISA_NAO_ENCONTRADA);
 
-		PageCartoesResponse pageCartoesResponse = new PageCartoesResponse(GenericConvert
+		return new PageCartoesResponse(GenericConvert
 				.convertModelMapperToPageResponse(listaCartoes, new TypeToken<List<CartaoResponse>>() {
 				}.getType()));
-
-		return pageCartoesResponse;
 	}
 
 	public ResponseEntity<CartaoResponse> buscarCartaoPorId(Long id) {
 		Cartao cartao = cartaoRepository.findById(id).orElse(new Cartao());
-		NotFoundCustom.checkThrow(Objects.isNull(cartao.getId()), ExceptionsMessagesEnum.CARTAO_NAO_ENCONTRADO);
+		NotFoundCustom.checkThrow(isNull(cartao.getId()), ExceptionsMessagesEnum.CARTAO_NAO_ENCONTRADO);
 
-		return new ResponseEntity<CartaoResponse>(makeResponse(cartao), HttpStatus.OK);
+		return new ResponseEntity<>(makeResponse(cartao), HttpStatus.OK);
 	}
 
 	public ResponseEntity<CartaoResponse> salvarCartao(@Valid CartaoSalvarRequest cartaoRequest) {
 		// busca a conta pelo id informado e verifica se existe
 		Conta conta = contaRepository.findById(cartaoRequest.getIdConta()).orElse(new Conta());
-		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
+		NotFoundCustom.checkThrow(isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 
 		Cartao cartao = convertCartaoSalvarRequestInCartao(cartaoRequest, conta);
 		
 		Cartao cartaoSaved = cartaoRepository.save(cartao);
 
-		if (java.util.Objects.isNull(cartaoSaved)) {
-			return new ResponseEntity<CartaoResponse>(HttpStatus.INTERNAL_SERVER_ERROR);
+		if (isNull(cartaoSaved)) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<CartaoResponse>(makeResponse(cartaoSaved), HttpStatus.CREATED);
+		return new ResponseEntity<>(makeResponse(cartaoSaved), HttpStatus.CREATED);
 	}
 
 	public void excluirCartao(Long id) {
@@ -87,31 +88,31 @@ public class CartaoService {
 		Conta conta = contaRepository.findById(update.getIdConta()).orElse(new Conta());	
 		NotFoundCustom.checkThrow(Objects.isNull(conta.getId()), ExceptionsMessagesEnum.CONTA_NAO_ENCONTRADA);
 		
-		 if (Objects.nonNull(update.getDescricao()))
+		 if (nonNull(update.getDescricao()))
 			 cartao.setDescricao(update.getDescricao());
 		 
-		 if (Objects.nonNull(update.getLimite()))
+		 if (nonNull(update.getLimite()))
 			 cartao.setLimite(update.getLimite());
 		 
-		 if (Objects.nonNull(update.getDiaFechamento()))
+		 if (nonNull(update.getDiaFechamento()))
 			 cartao.setDiaFechamento(update.getDiaFechamento());
 		 
-		 if (Objects.nonNull(update.getDiaPagamento()))
+		 if (nonNull(update.getDiaPagamento()))
 			 cartao.setDiaPagamento(update.getDiaPagamento());
 		 
-		 if (Objects.nonNull(update.getBandeira()))
+		 if (nonNull(update.getBandeira()))
 			 cartao.setBandeira(update.getBandeira());
 		 
-		 if (Objects.nonNull(update.getIdConta()))
+		 if (nonNull(update.getIdConta()))
 			 cartao.setConta(conta);
 		
 		 Cartao cartaoUpdated = cartaoRepository.save(cartao);
 		
-		if(java.util.Objects.isNull(cartaoUpdated)) {
-			return new ResponseEntity<CartaoResponse>(HttpStatus.INTERNAL_SERVER_ERROR);		
+		if(isNull(cartaoUpdated)) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);		
 		}
 		
-		return new ResponseEntity<CartaoResponse>(makeResponse(cartaoUpdated), HttpStatus.OK);
+		return new ResponseEntity<>(makeResponse(cartaoUpdated), HttpStatus.OK);
 	}
 
 	private Cartao convertCartaoSalvarRequestInCartao(CartaoSalvarRequest cartaoRequest, Conta conta) {

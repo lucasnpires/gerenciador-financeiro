@@ -1,0 +1,16 @@
+server:
+   port: 8090
+
+spring:
+   datasource:
+      url: jdbc:postgresql://localhost:5432/gestao-financeira
+      username: postgres
+      password: postgres
+   jpa:
+      properties:
+         hibernate:
+            temp:
+               use_jdbc_metadata_defaults: false
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+      hibernate:
+         ddl-auto: update

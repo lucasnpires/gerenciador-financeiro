@@ -1,8 +1,8 @@
 package br.com.lucas.gestorfinanceiroapi.enums;
 
 public enum FaturaEnum {
-	MES_ATUAL("MÊS ATUAL"), 
-	PROXIMO_MÊS("PRÓXIMO MÊS");
+	MESATUAL("MÊS ATUAL"), 
+	PROXIMOMES("PRÓXIMO MÊS");
 	
 	private String valor;
 
