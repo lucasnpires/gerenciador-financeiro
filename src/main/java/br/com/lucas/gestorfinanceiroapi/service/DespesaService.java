@@ -114,8 +114,8 @@ public class DespesaService {
 		if (Objects.nonNull(update.getDataDespesa()))
 			despesa.setDataDespesa(update.getDataDespesa());
 
-		if (Objects.nonNull(update.getDataDespesa()))
-			despesa.setTotal(update.getTotal());
+                if (Objects.nonNull(update.getTotal()))
+                        despesa.setTotal(update.getTotal());
 
 		Despesa despesaUpdated = despesaRepository.save(despesa);
 
